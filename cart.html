@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <h1>Your Cart</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="designs.html">Furniture Designs</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="cart-container">
+    <h2>Items in Your Cart:</h2>
+    <ul id="cartItems"></ul>
+    <h3 id="total">Total: ₹0</h3>
+    <button onclick="clearCart()">Clear Cart</button>
+  </section>
+
+  
+
+  <script>
+    const cartList = document.getElementById('cartItems');
+    const totalElement = document.getElementById('total');
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let total = 0;
+
+    cart.forEach(item => {
+      let li = document.createElement('li');
+      li.textContent = `${item.name} - ₹${item.price}`;
+      cartList.appendChild(li);
+      total += item.price;
+    });
+
+    totalElement.textContent = `Total: ₹${total}`;
+
+    function clearCart() {
+      localStorage.removeItem('cart');
+      location.reload();
+    }
+  </script>
+</body>
+</html>
